@@ -14,5 +14,6 @@ jobs:
     - name: install dependencies
       run: |
         sudo apt update
-        sudo apt install -y build-essential cmake clang libssl-dev ccache
+        sudo apt install -y \ build-essential \
+        cmake \ clang \ libssl-dev \ ccache
 
