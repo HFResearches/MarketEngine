@@ -15,7 +15,7 @@ jobs:
 
         with:
           path: build/_deps
-          key: ${{ runner.03 }}-deps-${{ hashFiles('CMakeLists.txt') }}
+          key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt') }}
 
 
 
