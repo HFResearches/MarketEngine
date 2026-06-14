@@ -10,6 +10,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Cache build
+        uses: action/cache@v4
+        with:
+          path: |
+            build
+
+            key: ${{ runner.os }}-deps-${{ github.sha}}
+            restore-keys: |
+              ${{ runner.os }}-build-
+              
       - name: Cache CMake dependencies
         uses: actions/cache@v4
 
@@ -30,6 +41,5 @@ jobs:
 
       - name: build
         run: |
-          MAKEFLAGS="-j$(nproc)" cmake --build build --verbose
-
+          cmake --build build --parallel $(nproc)
 
