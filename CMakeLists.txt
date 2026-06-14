@@ -48,7 +48,7 @@ target_link_libraries(MarketEngine PRIVATE
   OpenSSL::SSL
   OpenSSL::Crypto
 
-  duckdb::duckdb
+  duckdb
   nlohmann_json::nlohmann_json)
 
 
