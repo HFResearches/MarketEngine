@@ -18,7 +18,7 @@ jobs:
 
       - name: configure
         run: |
-          cmake -B build -s .
+          cmake -B build -S .
 
       - name: build
         run: |
