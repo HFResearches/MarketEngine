@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Cache CMake dependencies 
+      - name: Cache CMake dependencies
         uses: actions/cache@4
 
         with:
