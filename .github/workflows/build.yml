@@ -16,10 +16,12 @@ jobs:
           sudo apt update
           sudo apt install -y build-essential cmake clang libssl-dev ccache
 
-      - name: Configuring project
+      - name: configure
         run: |
-          MAKEFLAGS="-j($nproc)" cmake --build build --verbose
+          cmake -B build -s .
 
-      - name: Running
-        run:
-          ./build/MarketEngine
+      - name: build
+        run: |
+          MAKEFLAGS="-j$(nproc)" cmake --build build --verbose
+
+
