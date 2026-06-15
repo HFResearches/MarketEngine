@@ -48,7 +48,7 @@ endif()
 
 target_link_libraries(MarketEngine PRIVATE duckdb)
 
-if(NOT nlohmann_json CONFIG QUIET)
+if(NOT nlohmann_json_FOUND)
   include(FetchContent)
   FetchContent_Declare(nlohmann_json
     GIT_REPOSITORY
@@ -60,6 +60,6 @@ if(NOT nlohmann_json CONFIG QUIET)
     FetchContent_MakeAvailable(nlohmann_json)
 endif()
 
-target_link_librari3s(MarketEngine PRIVATE  
+target_link_libraries(MarketEngine PRIVATE  
   nlohmann_json::nlohmann_json)
 
