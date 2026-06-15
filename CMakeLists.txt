@@ -33,8 +33,10 @@ find_package(OpenSSL REQUIRED)
 target_link_libraries(MarketEngine PRIVATE
   OpenSSL::SSL OpenSSL::Crypto)
 
-if(NOT nlohmann_json CONFIG QUIET)
-  include(FetchContent)
+target_link_libraries(MarketEngine PRIVATE duckdb)
+
+if(NOT nlohmann_json_FOUND)
+include(FetchContent)
   FetchContent_Declare(nlohmann_json
     GIT_REPOSITORY
     https://github.com/nlohmann/json.git
@@ -45,6 +47,6 @@ if(NOT nlohmann_json CONFIG QUIET)
     FetchContent_MakeAvailable(nlohmann_json)
 endif()
 
-target_link_librari3s(MarketEngine PRIVATE  
+target_link_libraries(MarketEngine PRIVATE  
   nlohmann_json::nlohmann_json)
 
