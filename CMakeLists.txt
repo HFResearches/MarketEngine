@@ -33,8 +33,6 @@ find_package(OpenSSL REQUIRED)
 target_link_libraries(MarketEngine PRIVATE
   OpenSSL::SSL OpenSSL::Crypto)
 
-target_link_libraries(MarketEngine PRIVATE duckdb)
-
 if(NOT nlohmann_json_FOUND)
 include(FetchContent)
   FetchContent_Declare(nlohmann_json
