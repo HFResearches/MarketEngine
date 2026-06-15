@@ -27,13 +27,6 @@ jobs:
           path: build/_deps
           key: ${{ runner.os }}-deps-${{ hashFiles('CMakeLists.txt') }}
 
-      - name: Cache duckdb
-        uses: actions/cache@v4
-        with:
-          path: |
-            build/_deps
-          key: ${{ runner.os }}-duckdb-${{ hashFiles('CMakeLists.txt') }}
-
       - name: Install dependencies
         run: |
           sudo apt update

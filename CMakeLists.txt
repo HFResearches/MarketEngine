@@ -33,21 +33,6 @@ find_package(OpenSSL REQUIRED)
 target_link_libraries(MarketEngine PRIVATE
   OpenSSL::SSL OpenSSL::Crypto)
 
-find_package(duckdb CONFIG QUIET)
-if(NOT duckdb_FOUND)
-  include(FetchContent)
-
-  FetchContent_Declare(duckdb 
-    GIT_REPOSITORY
-    https://github.com/duckdb/duckdb.git
-  
-    GIT_TAG v1.4.2)
-
-    FetchContent_MakeAvailable(duckdb)
-endif()
-
-target_link_libraries(MarketEngine PRIVATE duckdb)
-
 if(NOT nlohmann_json CONFIG QUIET)
   include(FetchContent)
   FetchContent_Declare(nlohmann_json
