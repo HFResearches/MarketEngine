@@ -83,7 +83,11 @@ void getCandles(const std::string symbol){
       period[x].open = j["open"].get<double>();
       period[x].high = j["high"].get<double>();
       period[x].low = j["low"].get<double>();
-      period[x].close = j["close"].get<double>(); 
+      period[x].close = j["close"].get<double>();
+
+      std::cout << period[x].open << "|"<< period[x].high 
+      << "|" << period[x].low << "|" << period[x].close <<
+      std::endl; 
     }
     
     for(size_t x{0}; x < a; x++)
