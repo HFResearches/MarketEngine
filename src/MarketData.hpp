@@ -1,5 +1,5 @@
 #pragma once
-#define max 1024;
+#define max 1024
 
 #include <iostream>
 #include <mutex>
