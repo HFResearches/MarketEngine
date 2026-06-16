@@ -2,6 +2,7 @@
 #include <netdb.h>
 #include <unistd.h>
 
+#include <openssl/rand.h>
 #include <openssl/ssl.h>
 
 #include <iostream>
@@ -13,7 +14,7 @@
 
 #include "MarketData.hpp"
 
-#define max 1024
+constexpr max 1024
 
 /*now down bellow period is only initialized 
 at get Candle*/
@@ -55,7 +56,7 @@ void getCandles(const std::string symbol){
   char chave64[64];
   EVP_EncodeBlock(
     reinterpret_cast<unsigned char*> 
-    (chave64);
+    (chave64)
   
     sizeof(chave64));  
 
@@ -86,7 +87,7 @@ void getCandles(const std::string symbol){
     }
     
     for(size_t x : max)
-      period[x].clear{};
+      period[x] = {};
   }
 
   SSL_shutdown(ssl);
