@@ -13,7 +13,9 @@
 
 #include "MarketData.hpp"
 
-candle period[max];
+#define max = 1024;
+
+candle period[nullptr];
 std::mutex mtx;
 
 using json = nlohmann::json;
@@ -70,7 +72,7 @@ void getCandles(const std::string symbol){
   while((bytes = SSL_read(ssl, buffermemoria,
     sizeof(buffermemoria) - 1)) > 0){
     std::lock_guard <mutex> lockar(mtx);
-    for(size_t x : max){
+    for(size_t x{0} : max){
       buffermemoria[bytes] = '\0';
       resposta += buffermemoria;   
       
