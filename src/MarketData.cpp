@@ -13,7 +13,7 @@
 
 #include "MarketData.hpp"
 
-#define max = 1024;
+#define max 1024
 
 /*now down bellow period is only initialized 
 at get Candle*/
