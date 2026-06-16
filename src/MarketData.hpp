@@ -12,7 +12,7 @@ struct candle{
 };
 
 
-extern candle period[max]{nullptr};
+extern candle period[max];
 extern std::mutex mtx;
 
 void getCandles(const std::string symbol);
