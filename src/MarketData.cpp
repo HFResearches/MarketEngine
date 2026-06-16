@@ -14,7 +14,7 @@
 
 #include "MarketData.hpp"
 
-constexpr max 1024
+constexpr size_t max = 1024;
 
 /*now down bellow period is only initialized 
 at get Candle*/
