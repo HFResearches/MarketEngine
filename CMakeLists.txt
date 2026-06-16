@@ -23,7 +23,8 @@ endif()
 set(CMAKE_BUILD_TYPE Release)
 
 add_executable(MarketEngine
-  src/main.cpp)
+  src/main.cpp
+  src/MarketData.cpp)
 
 target_include_directories(MarketEngine 
   PRIVATE src)
