@@ -55,10 +55,8 @@ void getCandles(const std::string symbol){
 
   char chave64[64];
   EVP_EncodeBlock(
-    reinterpret_cast<unsigned char*> 
-    (chave64)
-  
-    sizeof(chave64));  
+    (unsigned char*) 
+    (chave64), chave, sizeof(chave));
 
   std::string get = "GET /hubs/tick HTTP/1.1"
     "Host: biquote.io\r\n"
