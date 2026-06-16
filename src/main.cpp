@@ -4,7 +4,6 @@
 
 #include "MarketData.hpp"
 
-std::mutex mtx;
 int main(){
   std::thread c(getCandles, "DXY");
   c.detach();
