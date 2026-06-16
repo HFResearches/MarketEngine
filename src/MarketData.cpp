@@ -73,7 +73,8 @@ void getCandles(const std::string symbol){
   while((bytes = SSL_read(ssl, buffermemoria,
     sizeof(buffermemoria) - 1)) > 0){
     std::lock_guard <std::mutex> lockar(mtx);
-    for(size_t x{0} : period.size()){
+     
+    for(size_t x{0} : size_t a{1024}){
       buffermemoria[bytes] = '\0';
       resposta += buffermemoria;   
       
@@ -84,7 +85,7 @@ void getCandles(const std::string symbol){
       period[x].close = j["close"].get<double>(); 
     }
     
-    for(size_t x : period.size())
+    for(size_t x : size_t a{1024})
       period[x] = {};
   }
 
