@@ -7,7 +7,7 @@
 struct candle{
   double open, high; 
   double low, close;
-}
+};
 
 extern candle period[max];
 extern std::mutex mtx;
