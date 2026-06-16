@@ -75,7 +75,7 @@ void getCandles(const std::string symbol){
     std::lock_guard <std::mutex> lockar(mtx);
 
     size_t a{1024};     
-    for(size_t x{0} : a){
+    for(size_t x{0}; x < a; x++){
       buffermemoria[bytes] = '\0';
       resposta += buffermemoria;   
       
@@ -86,7 +86,7 @@ void getCandles(const std::string symbol){
       period[x].close = j["close"].get<double>(); 
     }
     
-    for(size_t x : a)
+    for(size_t x{0}; x < a; x++)
       period[x] = {};
   }
 
