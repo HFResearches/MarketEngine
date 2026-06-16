@@ -5,7 +5,7 @@
 #include <openssl/ssl.h>
 
 #include <iostream>
-#include <cstddef.h>
+#include <cstddef>
 #include <mutex>
 #include <cstring>
 
