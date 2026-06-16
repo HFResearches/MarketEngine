@@ -1,9 +1,11 @@
 #pragma once
-#define max 1024
 
 #include <iostream>
 #include <mutex>
 #include <cstring>
+
+#define size_t max = 1024;
+
 struct candle{
   double open, high; 
   double low, close;
