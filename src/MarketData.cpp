@@ -13,17 +13,12 @@
 
 #include "MarketData.hpp"
 
-size_t buffer(size_t a){
-  return a;
-}
-
-candle period[buffer(a)];
+candle period[max];
 std::mutex mtx;
 
 using json = nlohmann::json;
 
-void getCandles(const std::string symbol, 
-  size_t max){
+void getCandles(const std::string symbol){
   SSL_library_init();
   SSL_CTX* ctx = 
     SSL_CTX_new(TLS_client_method());
@@ -85,6 +80,9 @@ void getCandles(const std::string symbol,
       period[x].low = j["low"].get<double>;
       period[x].close = j["close"].get<double>; 
     }
+    
+    for(size_t x : max)
+      period[x].clear();
   }
 
   SSL_shutdown(ssl);
