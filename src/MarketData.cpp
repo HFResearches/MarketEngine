@@ -15,7 +15,7 @@
 
 #define max = 1024;
 
-candle period[nullptr];
+candle period[max]{nullptr};
 std::mutex mtx;
 
 using json = nlohmann::json;

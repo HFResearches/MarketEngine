@@ -9,7 +9,7 @@ struct candle{
   double low, close;
 };
 
-extern candle period[nullptr];
+extern candle period[];
 extern std::mutex mtx;
 
 void getCandles(const std::string symbol);
