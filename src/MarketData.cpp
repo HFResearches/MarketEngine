@@ -19,7 +19,7 @@ constexpr size_t max = 1024;
 /*now down bellow period is only initialized 
 at get Candle*/
 
-candle period[max]{};
+candle period[1024]{};
 std::mutex mtx;
 
 using json = nlohmann::json;

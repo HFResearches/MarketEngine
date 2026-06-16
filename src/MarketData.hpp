@@ -10,7 +10,7 @@ struct candle{
 };
 
 
-extern candle period[];
+extern candle period[1024];
 extern std::mutex mtx;
 
 void getCandles(const std::string symbol);
