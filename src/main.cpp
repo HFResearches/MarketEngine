@@ -5,7 +5,7 @@
 
 #include "MarketData.hpp"
 
-using namespace std::chrono_suffix_literals;
+using namespace std::chrono_literals;
 int main(){
   std::thread c(getCandles, "DXY");
   c.detach();
