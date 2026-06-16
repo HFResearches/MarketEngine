@@ -18,7 +18,7 @@
 /*now down bellow period is only initialized 
 at get Candle*/
 
-candle period[max]{nullptr};
+candle period[max]{};
 std::mutex mtx;
 
 using json = nlohmann::json;
@@ -40,7 +40,7 @@ void getCandles(const std::string symbol){
   ipv4.sin_port = htons(443);
 
   memcpy(&ipv4.sin_addr, endereco->h_addr,
-    endereco->h__length);
+    endereco->h_length);
 
   connect(pacote, (sockaddr*) &ipv4,
     sizeof(ipv4));
@@ -57,11 +57,10 @@ void getCandles(const std::string symbol){
     reinterpret_cast<unsigned char*> 
     (chave64);
   
-    sizeof(chave16);
-  );  
+    sizeof(chave64));  
 
-  const char* get = "GET /hubs/tick HTTP/1.1"
-    "Host: biquote.io"
+  std::string get = "GET /hubs/tick HTTP/1.1"
+    "Host: biquote.io\r\n"
     "Upgrade: websocket"
     "Connection: Upgrade"
     "Sec-WebSocket-Version: 13"
@@ -74,26 +73,26 @@ void getCandles(const std::string symbol){
   int bytes;
   while((bytes = SSL_read(ssl, buffermemoria,
     sizeof(buffermemoria) - 1)) > 0){
-    std::lock_guard <mutex> lockar(mtx);
+    std::lock_guard <std::mutex> lockar(mtx);
     for(size_t x{0} : max){
       buffermemoria[bytes] = '\0';
       resposta += buffermemoria;   
       
       json j = json::parse(resposta);
-      period[x].open = j["open"].get<double>;
-      period[x].high = j["high"].get<double>;
-      period[x].low = j["low"].get<double>;
-      period[x].close = j["close"].get<double>; 
+      period[x].open = j["open"].get<double>();
+      period[x].high = j["high"].get<double>();
+      period[x].low = j["low"].get<double>();
+      period[x].close = j["close"].get<double>(); 
     }
     
     for(size_t x : max)
-      period[x].clear();
+      period[x].clear{};
   }
 
   SSL_shutdown(ssl);
   SSL_free(ssl);
 
   close(pacote);
-  SSL_free(ctx);
+  SSL_CTX_free(ctx);
   
 }
