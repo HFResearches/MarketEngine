@@ -24,6 +24,8 @@ std::mutex mtx;
 
 using json = nlohmann::json;
 
+size_t a{0};
+
 void getCandles(const std::string symbol){
   SSL_library_init();
   SSL_CTX* ctx = 
@@ -63,32 +65,43 @@ void getCandles(const std::string symbol){
     buffermemoria[bytes] = '\0';
     resposta += buffermemoria;
   }
-
-  size_t a{1024};    
+ 
   size_t endHeader = resposta.find("\r\n\r\n");
 
   if(endHeader != std::string::npos){
-    std::string body = resposta.substr(endHeader + 4); 
-    for(size_t x{0}; x < a; x++){
-      try{      
-        json j = json::parse(body);
-     
-        period[x].open = j["open"].get<double>();
-        period[x].high = j["high"].get<double>();
-        period[x].low = j["low"].get<double>();
-        period[x].close = j["close"].get<double>();
+    std::string body = resposta.substr(endHeader + 4);
+    json j = json::parse(body);
+ 
+    try{      
+      json j = json::parse(body);
 
-        std::cout << period[x].open << "|"<< period[x].high 
-        << "|" << period[x].low << "|" << period[x].close <<
-        std::endl; 
-      }catch(json::exception& e){
-        std::cerr << "Error trying to parse " << e.what() << std::endl;
+      {
+        std::lock_guard<std::mutex> lock(mtx);     
+
+        period[a].open = j["open"].get<double>();
+        period[a].high = j["high"].get<double>();
+        period[a].low = j["low"].get<double>();
+        period[a].close = j["close"].get<double>();
+
+        std::cout << period[a].open << "|"<< period[a].high 
+        << "|" << period[a].low << "|" << period[a].close <<
+        std::endl;
+
+        a = (a + 1) % 1024; 
       }
+    }catch(json::exception& e){
+      std::cerr << "Error trying to parse " << e.what() << std::endl;
     } 
   }  
     
-  for(size_t x{0}; x < a; x++)
-    period[x] = {};
+  {
+    std::lock_guard<std::mutex> lock(mtx);
+
+    period[a].open = {};
+    period[a].high = {};
+    period[a].low = {};
+    period[a].close = {};
+  }
 
   SSL_shutdown(ssl);
   SSL_free(ssl);
