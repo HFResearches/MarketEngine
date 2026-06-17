@@ -70,9 +70,6 @@ void getCandles(const std::string symbol){
   if(endHeader != std::string::npos){
     std::string body = resposta.substr(endHeader + 4); 
     for(size_t x{0}; x < a; x++){
-      buffermemoria[bytes] = '\0';
-      resposta += buffermemoria;   
-
       try{      
         json j = json::parse(body);
      
