@@ -101,6 +101,8 @@ void getCandles(const std::string symbol){
     period[a].high = {};
     period[a].low = {};
     period[a].close = {};
+
+    a = (a + 1) & 1024;
   }
 
   SSL_shutdown(ssl);
