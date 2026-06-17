@@ -59,42 +59,39 @@ void getCandles(const std::string symbol){
   int bytes;
   while((bytes = SSL_read(ssl, buffermemoria,
     sizeof(buffermemoria) - 1)) > 0){
+    std::lock_guard <std::mutex> lock(mtx);
     buffermemoria[bytes] = '\0';
     resposta += buffermemoria;
   }
 
-  {
-    std::lock_guard <std::mutex> lockar(mtx);
+  size_t a{1024};    
+  size_t endHeader = resposta.find("\r\n\r\n");
 
-    size_t a{1024};    
-    size_t endHeader = resposta.find("\r\n\r\n");
+  if(endHeader != std::string::npos){
+    std::string body = resposta.substr(endHeader + 4); 
+    for(size_t x{0}; x < a; x++){
+      buffermemoria[bytes] = '\0';
+      resposta += buffermemoria;   
 
-    if(endHeader != std::string::npos){
-      std::string body = resposta.substr(endHeader + 4); 
-      for(size_t x{0}; x < a; x++){
-        buffermemoria[bytes] = '\0';
-        resposta += buffermemoria;   
-
-        try{      
-          json j = json::parse(resposta);
+      try{      
+        json j = json::parse(body);
      
-          period[x].open = j["open"].get<double>();
-          period[x].high = j["high"].get<double>();
-          period[x].low = j["low"].get<double>();
-          period[x].close = j["close"].get<double>();
+        period[x].open = j["open"].get<double>();
+        period[x].high = j["high"].get<double>();
+        period[x].low = j["low"].get<double>();
+        period[x].close = j["close"].get<double>();
 
-          std::cout << period[x].open << "|"<< period[x].high 
-          << "|" << period[x].low << "|" << period[x].close <<
-          std::endl; 
-        }catch(json::exception& e){
-          std::cerr << "Error trying to parse " << e.what() << std::endl;
-        }
-      } 
-    }  
+        std::cout << period[x].open << "|"<< period[x].high 
+        << "|" << period[x].low << "|" << period[x].close <<
+        std::endl; 
+      }catch(json::exception& e){
+        std::cerr << "Error trying to parse " << e.what() << std::endl;
+      }
+    } 
+  }  
     
-    for(size_t x{0}; x < a; x++)
-      period[x] = {};
-  }
+  for(size_t x{0}; x < a; x++)
+    period[x] = {};
 
   SSL_shutdown(ssl);
   SSL_free(ssl);
