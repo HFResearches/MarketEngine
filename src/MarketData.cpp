@@ -53,7 +53,7 @@ void getCandles(const std::string symbol){
   
   SSL_connect(ssl);
   
-  std::string get = "GET /api/" + symbol +
+  std::string get = "GET /api/" + symbol + "/ohlc" +
   " HTTP/1.1\r\nHost: biquote.io\r\nConnection: close\r\n\r\n";  
   SSL_write(ssl, get.c_str(), get.size());
   char buffermemoria[4096];
