@@ -65,16 +65,21 @@ void getCandles(const std::string symbol){
     for(size_t x{0}; x < a; x++){
       buffermemoria[bytes] = '\0';
       resposta += buffermemoria;   
-      
-      json j = json::parse(resposta);
-      period[x].open = j["open"].get<double>();
-      period[x].high = j["high"].get<double>();
-      period[x].low = j["low"].get<double>();
-      period[x].close = j["close"].get<double>();
 
-      std::cout << period[x].open << "|"<< period[x].high 
-      << "|" << period[x].low << "|" << period[x].close <<
-      std::endl; 
+      try{      
+        json j = json::parse(resposta);
+     
+        period[x].open = j["open"].get<double>();
+        period[x].high = j["high"].get<double>();
+        period[x].low = j["low"].get<double>();
+        period[x].close = j["close"].get<double>();
+
+        std::cout << period[x].open << "|"<< period[x].high 
+        << "|" << period[x].low << "|" << period[x].close <<
+        std::endl; 
+      }catch(json::exception& e){
+        std::cerr << "Error trying to parse " << e.what() << std::endl;
+      }
     }
     
     for(size_t x{0}; x < a; x++)
