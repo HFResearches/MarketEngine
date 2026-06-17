@@ -50,22 +50,10 @@ void getCandles(const std::string symbol){
   SSL_set_fd(ssl, pacote);
   
   SSL_connect(ssl);
-  unsigned char chave[16];
-  RAND_bytes(chave, sizeof(chave));
-
-  char chave64[64];
-  EVP_EncodeBlock(
-    (unsigned char*) 
-    (chave64), chave, sizeof(chave));
-
-  std::string get = "GET /hubs/tick HTTP/1.1"
-    "Host: biquote.io\r\n"
-    "Upgrade: websocket"
-    "Connection: Upgrade"
-    "Sec-WebSocket-Version: 13"
-    "Sec-WebSocket-Key: " + 
-    std::string(chave64) + "\r\n\r\n";
-
+  
+  std::string get = "GET /api/" + symbol +
+  " HTTP/1.1\r\nHost biquote.io \r\nConnection: " +
+  "close\r\n\r\n";  
   SSL_write(ssl, get.c_str(), get.size());
   char buffermemoria[4096];
   
