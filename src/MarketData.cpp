@@ -70,7 +70,6 @@ void getCandles(const std::string symbol){
 
   if(endHeader != std::string::npos){
     std::string body = resposta.substr(endHeader + 4);
-    json j = json::parse(body);
  
     try{      
       json j = json::parse(body);
@@ -102,7 +101,7 @@ void getCandles(const std::string symbol){
     period[a].low = {};
     period[a].close = {};
 
-    a = (a + 1) & 1024;
+    a = (a + 1) % 1024;
   }
 
   SSL_shutdown(ssl);
