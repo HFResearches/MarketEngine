@@ -59,6 +59,11 @@ void getCandles(const std::string symbol){
   int bytes;
   while((bytes = SSL_read(ssl, buffermemoria,
     sizeof(buffermemoria) - 1)) > 0){
+    buffermemoria[bytes] = '\0';
+    resposta += buffermemoria;
+  }
+
+  {
     std::lock_guard <std::mutex> lockar(mtx);
 
     size_t a{1024};     
