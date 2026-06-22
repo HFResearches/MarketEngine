@@ -4,14 +4,33 @@
 #include <chrono>
 
 #include "MarketData.hpp"
+#include <iterator>
 
-using namespace std::chrono_literals;
+size_t x{'\0'};
+size_t as{'\0'};
 int main(){
-  std::thread c(getCandles, "DXY");
-  c.detach();
- 
+  std::string symbol;
+  
+  std::cin >> symbol;
+  std::thread c(getCandles, symbol);
+  c.detach(); 
+  bool f{};
   while(true){
-    std::cout << "Running main.\n";
+    {
+      {       
+        std::lock_guard<std::mutex> lock(mtx);
+
+        as = std::size(period);
+        for(size_t x{'\0'}; x < as; x++){
+          size_t ptrIDX = x;
+                 
+          std::cout << period[ptrIDX].open
+          << ":" << period[ptrIDX].high << 
+          ":" << period[ptrIDX].low << ":"
+          << period[ptrIDX].close << ":" << std::endl;
+        }
+      }
+    }
   }
 
   return 0;
