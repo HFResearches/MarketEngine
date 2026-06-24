@@ -2,34 +2,36 @@
 #include <mutex>
 #include <thread>
 #include <chrono>
-
+#include <random>
 #include "MarketData.hpp"
-#include <iterator>
+#include "ringbuffer.hpp"
 
 size_t x{'\0'};
 size_t as{'\0'};
+
 int main(){
+  std::srand(time(0));
   std::string symbol;
   
   std::cin >> symbol;
   std::thread c(getCandles, symbol);
   c.detach(); 
+
+  std::random_device rd;
+  std::mt19937 generate(rd())
+;
   bool f{};
   while(true){
-    {
-      {       
-        std::lock_guard<std::mutex> lock(mtx);
+    std::uniform_int_distribution<size_t> distribution(0, 1024);
+    x = distribution(generate);
 
-        as = std::size(period);
-        for(size_t x{'\0'}; x < as; x++){
-          size_t ptrIDX = x;
-                 
-          std::cout << period[ptrIDX].open
-          << ":" << period[ptrIDX].high << 
-          ":" << period[ptrIDX].low << ":"
-          << period[ptrIDX].close << ":" << std::endl;
-        }
-      }
+    {
+      std::lock_guard<std::mutex> lock(mtx);
+
+      std::cout << period[x].open
+      << ":" << period[x].high << 
+      ":" << period[x].low << ":"
+      << period[x].close << ":" << std::endl;
     }
   }
 

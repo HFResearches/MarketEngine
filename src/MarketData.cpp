@@ -10,6 +10,7 @@
 #include <cstddef>
 #include <mutex>
 #include <cstring>
+#include <numeric>
 
 #include "MarketData.hpp"
 
@@ -137,4 +138,42 @@ void getCandles(const std::string symbol){
    
     }
   }
+}
+
+inline double OHLC::net(size_t x){
+  std::lock_guard<std::mutex> lock(mtx);
+  return period[x].close - period[x].open;
+}
+ 
+inline double OHLC::body(size_t x){
+  std::lock_guard<std::mutex> lock(mtx);
+  return std::abs(period[x].close - period[x].open);
+}
+
+inline double OHLC::lowerShadow(size_t x){
+  if(net(x) > 0) {
+    std::lock_guard<std::mutex> lock(mtx);
+    return period[x].open - period[x].low;
+
+  } else if(net(x) < 0) {
+    std::lock_guard<std::mutex> lock(mtx);
+    return period[x].close - period[x].low;
+
+  }
+
+  return {};
+}
+
+inline double OHLC::upperShadow(size_t x){
+  if(net(x) > 0){
+    std::lock_guard<std::mutex> lock(mtx);
+    return period[x].high - period[x].close;
+
+  } else if(net(x) < 0) {
+    std::lock_guard<std::mutex> lock(mtx);
+    return period[x].high - period[x].open;
+
+  }
+
+  return {};
 }
