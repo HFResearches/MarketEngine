@@ -21,7 +21,9 @@ if(CCACHE_PROGRAM)
 endif()
 
 add_executable(MarketEngine
-  src/main.cpp
+  src/main.cpp)
+
+add_library(MarketEngineLib STATIC
   src/MarketData.cpp)
 
 target_include_directories(MarketEngine 
@@ -32,3 +34,11 @@ find_package(OpenSSL REQUIRED)
 target_link_libraries(MarketEngine PRIVATE
   OpenSSL::SSL OpenSSL::Crypto)
 
+install(TARGETS MarketEngineLib
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib
+)
+
+install(FILES
+  src/MarketData.hpp
+  DESTINATION include)
