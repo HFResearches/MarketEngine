@@ -24,7 +24,7 @@ std::mutex mtx;
 
 extern size_t a{0};
 
-consteval void getCandles(const std::string
+void getCandles(const std::string
 symbol) noexcept{
   while(true){
     SSL_library_init();
@@ -151,7 +151,7 @@ inline double OHLC::body(size_t x) noexcept{
   return std::abs(period[x].close - period[x].open);
 }
 
-consteval double OHLC::lowerShadow(size_t x){
+double OHLC::lowerShadow(size_t x){
   if(net(x) > 0) {
     std::lock_guard<std::mutex> lock(mtx);
     return period[x].open - period[x].low;
@@ -165,7 +165,7 @@ consteval double OHLC::lowerShadow(size_t x){
   return {};
 }
 
-consteval double OHLC::upperShadow(size_t x){
+double OHLC::upperShadow(size_t x){
   if(net(x) > 0){
     std::lock_guard<std::mutex> lock(mtx);
     return period[x].high - period[x].close;
