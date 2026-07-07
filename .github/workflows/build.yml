@@ -32,13 +32,18 @@ jobs:
           sudo apt update
           sudo apt install -y build-essential cmake clang libssl-dev ccache
 
+      - name: set ccache
+        run: |
+          echo "CC=ccache clang" >> $GITHUB_ENV
+          echo "CXX=ccache clang++" >> $GITHUB_ENV
+
       - name: configure
         run: |
-          cmake -B build -S .
-
+          ccache cmake -B build -S .
+   
       - name: build
         run: |
-          cmake --build build --parallel $(nproc)
+          ccache cmake --build build --parallel $(nproc)
 
       - name: getbackExec
         uses: actions/upload-artifact@v4

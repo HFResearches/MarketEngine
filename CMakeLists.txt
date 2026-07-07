@@ -28,6 +28,8 @@ add_library(MarketEngineLib STATIC
 
 target_include_directories(MarketEngine 
   PRIVATE src)
+target_include_directories(MarketEngine
+  PRIVATE descritionarymodels)
 
 find_package(OpenSSL REQUIRED)
 

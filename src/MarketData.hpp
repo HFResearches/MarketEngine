@@ -4,7 +4,7 @@
 #include <mutex>
 #include <cstring>
 
-struct candle{
+struct alignas(32) candle{
   double open, high; 
   double low, close;
 };
