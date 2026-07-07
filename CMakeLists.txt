@@ -37,7 +37,9 @@ target_include_directories(MarketEngine
 find_package(OpenSSL REQUIRED)
 
 target_link_libraries(MarketEngine PRIVATE
-  OpenSSL::SSL OpenSSL::Crypto)
+  OpenSSL::SSL 
+  OpenSSL::Crypto
+  MarketEngineLib)
 
 install(TARGETS MarketEngineLib
   ARCHIVE DESTINATION lib
