@@ -11,6 +11,7 @@
 #include <mutex>
 #include <cstring>
 #include <numeric>
+#include <optional>
 
 #include "MarketData.hpp"
 
@@ -179,10 +180,13 @@ double OHLC::upperShadow(size_t x){
   return {};
 }
 
+std::optional<double> sumbody;
+std::optional<double> sumpinning;
+
 inline bool OHLC::spinning(size_t x, size_t shift) 
 noexcept{
   for(size_t go{x}; go < shift+x; go++){
-    double sumbody += body(go);
+    sumbody += body(go);
   }
 
   double average = sumbody / shift;
@@ -194,11 +198,11 @@ inline bool OHLC::doji(size_t x, size_t shift)
 noexcept{
   for(size_t go{x}; go < shift+x; go++){
     if(spinning(go, shift)){
-      double sumSpinning += body(go);
+      sumspinning += body(go);
     }
   }
   
-  double averageSpinning = sumSpinning / 
+  double averageSpinning = sumspinning / 
   shift;
   
   return body(x) < averageSpinning;
