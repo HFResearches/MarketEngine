@@ -186,10 +186,10 @@ std::optional<double> sumspinning;
 inline bool OHLC::spinning(size_t x, size_t shift) 
 noexcept{
   for(size_t go{x}; go < shift+x; go++){
-    sumbody += body(go);
+    *sumbody += body(go);
   }
 
-  double average = sumbody / shift;
+  double average = *sumbody / shift;
 
   return body(x) * 4 <= average;
 }
@@ -198,11 +198,11 @@ inline bool OHLC::doji(size_t x, size_t shift)
 noexcept{
   for(size_t go{x}; go < shift+x; go++){
     if(spinning(go, shift)){
-      sumspinning += body(go);
+      *sumspinning += body(go);
     }
   }
   
-  double averageSpinning = sumspinning / 
+  double averageSpinning = *sumspinning / 
   shift;
   
   return body(x) < averageSpinning;
