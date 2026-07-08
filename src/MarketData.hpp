@@ -21,10 +21,11 @@ class OHLC{
     inline double net(size_t x) noexcept;
     inline double body(size_t x) noexcept;
    
-    inline bool doji(size_t x) noexcept;
-    inline bool spinning(size_t x) noexcept;
-    inline bool marobozu(size_t x) noexcept;
-
+    inline bool doji(size_t x, 
+      size_t shift) noexcept;
+    inline bool spinning(size_t x, 
+      size_t shift) noexcept;
+    
     double lowerShadow(size_t x);
     double upperShadow(size_t x);
 };

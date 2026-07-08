@@ -192,7 +192,7 @@ noexcept{
 inline bool OHLC::doji(size_t x, size_t shift) 
 noexcept{
   for(size_t go{x}; go < shift+x; go++){
-    if(spinning(go, shift){
+    if(spinning(go, shift)){
       constexpr double sumSpinning = std::accumulate(
       body(go), body(shift+x), body(x));
     }
