@@ -181,7 +181,7 @@ double OHLC::upperShadow(size_t x){
 }
 
 std::optional<double> sumbody;
-std::optional<double> sumpinning;
+std::optional<double> sumspinning;
 
 inline bool OHLC::spinning(size_t x, size_t shift) 
 noexcept{
