@@ -182,9 +182,9 @@ double OHLC::upperShadow(size_t x){
 inline bool OHLC::spinning(size_t x, size_t shift) 
 noexcept{
   constexpr double sumbody = std::accumulate(
-  body(x), body(x+shift), body(x));
+  body(x), body(x+shift), 0.0);
 
-  constexpr double average = sumbody / shift);
+  constexpr double average = sumbody / shift;
 
   return body(x) * 4 <= average;
 }
@@ -192,13 +192,16 @@ noexcept{
 inline bool OHLC::doji(size_t x, size_t shift) 
 noexcept{
   for(size_t go{x}; go < shift+x; go++){
-    if(spinning(go, shift)){
+    if(spinning(go, shift){
       constexpr double sumSpinning = std::accumulate(
-      body(go), body(shift+x), body(x));
+      body(go), body(shift+x), 0.0);
     }
   }
   
-  constexpr double averageSpinning = sumSpinning / shift;
+  constexpr double averageSpinning = sumSpinning / 
+  shift;
   
   return body(x) < averageSpinning;
 }
+
+
