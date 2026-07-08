@@ -25,6 +25,8 @@ class OHLC{
       size_t shift) noexcept;
     inline bool spinning(size_t x, 
       size_t shift) noexcept;
+    inline bool marobozu(size_t x,
+      size_t shift) noexcept;
     
     double lowerShadow(size_t x);
     double upperShadow(size_t x);

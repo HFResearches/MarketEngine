@@ -189,7 +189,7 @@ noexcept{
     *sumbody += body(go);
   }
 
-  double average = *sumbody / shift;
+  double average = sumbody.value() / shift;
 
   return body(x) * 4 <= average;
 }
@@ -202,10 +202,19 @@ noexcept{
     }
   }
   
-  double averageSpinning = *sumspinning / 
+  double averageSpinning = sumspinning.value() / 
   shift;
   
   return body(x) < averageSpinning;
 }
 
+inline bool OHLC::marobozu(size_t x, size_t shift)
+noexcept{
+  for(size_t go{x}; go < shift+x; go++){
+    *sumbody += body(go);
+  }
+  
+  double averagebody = sumbody.value() / shift;
 
+  return body(x) >= averagebody;
+}
