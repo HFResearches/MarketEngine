@@ -7,7 +7,7 @@ project(MarketEngine
 include(ProcessorCount)
 ProcessorCount(N_CORES)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_BUILD_PARALLEL_LEVEL ${N_CORES})

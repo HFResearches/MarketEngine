@@ -23,7 +23,7 @@ at get Candle*/
 candle period[1024]{};
 std::mutex mtx;
 
-extern size_t a{0};
+extern size_t a{0uz};
 
 void getCandles(const std::string
 symbol) noexcept{
