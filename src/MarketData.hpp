@@ -18,8 +18,8 @@ symbol) noexcept;
 
 class OHLC{
   public:
-    inline double net(size_t x) noexcept;
-    inline double body(size_t x) noexcept;
+    double net(size_t x) noexcept;
+    double body(size_t x) noexcept;
    
     inline bool doji(size_t x, 
       size_t shift) noexcept;

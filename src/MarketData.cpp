@@ -142,12 +142,12 @@ symbol) noexcept{
   }
 }
 
-inline double OHLC::net(size_t x) noexcept{
+double OHLC::net(size_t x) noexcept{
   std::lock_guard<std::mutex> lock(mtx);
   return period[x].close - period[x].open;
 }
  
-inline double OHLC::body(size_t x) noexcept{
+double OHLC::body(size_t x) noexcept{
   std::lock_guard<std::mutex> lock(mtx);
   return std::abs(period[x].close - period[x].open);
 }
